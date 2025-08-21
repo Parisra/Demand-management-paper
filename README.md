@@ -1,6 +1,6 @@
 # Pathways to Net-Zero: Exploring consumer’s behavioral changes for flexibility and demand reduction from a system perspective
 This repository contains the scripts used to generate network files and the notebooks to reproduce figures in the main text and supplementary of the paper.
-
+A preprint of the paper is available on arXiv: https://arxiv.org/abs/2508.04414
 
 ## Abstract
 
