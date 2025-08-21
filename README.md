@@ -1,4 +1,4 @@
-# Identifying high-impact consumers’ behavioural changes for flexibility and demand reduction ina net-zero energy system
+# Identifying high-impact consumers’ behavioural changes for flexibility and demand reduction in a net-zero energy system
 This repository contains the scripts used to generate network files and the notebooks to reproduce figures in the main text and supplementary of the paper.
 A preprint of the paper is available on arXiv: https://arxiv.org/abs/2508.04414
 
