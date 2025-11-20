@@ -18,5 +18,5 @@ when using it to produce similiar figures for PyPSA network files.
 
 ## Access to files
 
-All files necessary to reproduce the figures in the paper unsing the notebooks in this repository are available at: https://zenodo.org/records/TBD. 
+All files necessary to reproduce the figures in the paper using the notebooks in this repository are available at: https://zenodo.org/records/TBD. 
 
