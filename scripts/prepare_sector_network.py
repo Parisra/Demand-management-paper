@@ -4049,7 +4049,10 @@ def reduce_demand(n, factor =0.1 , sector =[] , method = '') :
         print('peak shaving of load for' , sector_loads, 'with free storage equal to', load_change_factor, 'of demand') 
 
     if method == 'load-shedding' :
-
+        load_shedding_cost = float(factor[1:]) ##Eur/MWh
+        n.add("Carrier", "load_"+sector, color="#dd2e23", nice_name=sector + " Load shedding")
+        ## without limit
+        """
         load_shedding_cost = float(factor[1:]) ##Eur/MWh
         n.add("Carrier", "load_"+sector, color="#dd2e23", nice_name=sector + " Load shedding")
 
@@ -4062,8 +4065,40 @@ def reduce_demand(n, factor =0.1 , sector =[] , method = '') :
             marginal_cost=load_shedding_cost,  # Eur/MWh
             p_nom_extendable = True , 
         )
-        print('added load shedding for' , sector_loads, 'with cost of', load_shedding_cost, 'EUr/MWh') 
+        """
+        ## for limited runs: limit to x% of exogenous electricity demand
+        if sector=='elec':
+            for bus in n.loads.bus[load_i].values:
+                node= ' '.join(bus.split(' ')[:2])
+                load_elec = n.loads.index[n.loads.carrier.isin(["electricity",  'land transport EV',])]
+                limit = n.loads_t.p_set.loc[:, [i for i in load_elec if i in n.loads_t.p_set.columns]].filter(like=node).sum(axis=1)+(
+                n.loads.p_set.loc[n.loads.index[n.loads.carrier.isin(['industry electricity'])]].filter(like=node).sum()) 
+    
+                n.add(
+                  "Generator",
+                  f"{bus} load shedding",
+                  bus=bus,
+                  carrier="load_"+sector,
+                  marginal_cost=load_shedding_cost,  # Eur/MWh
+                  p_nom = limit.max()*0.5 ,  ##To ensure load shedding is limited to 50% of total electricity load (residential, industrial, and EVs)
+                  p_max_pu= limit/limit.max() , 
+                )
+            print('added load shedding for' , sector_loads, 'with cost of', load_shedding_cost, 'EUr/MWh') 
 
+        if sector=='heat':
+            for bus in n.loads.bus[load_i].values:
+                limit = n.loads_t.p_set[bus]
+    
+                n.add(
+                  "Generator",
+                  f"{bus} load shedding",
+                  bus=bus,
+                  carrier="load_"+sector,
+                  marginal_cost=load_shedding_cost,  # Eur/MWh
+                  p_nom = limit.max()*0.1 ,  ##for 50% limit
+                  p_max_pu= limit/limit.max() , 
+                )
+            print('added load shedding for' , sector_loads, 'with cost of', load_shedding_cost, 'EUr/MWh') 
 # %%
 if __name__ == "__main__":
     if "snakemake" not in globals():
