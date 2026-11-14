@@ -1,4 +1,4 @@
-# Identifying high-impact consumers’ behavioural changes for flexibility and demand reduction in a net-zero energy system
+# Identifying demand-side measures that matter most for Europe’s decarbonisation
 This repository contains the scripts used to generate network files and the notebooks to reproduce figures in the main text and supplementary of the paper.
 A preprint of the paper is available on arXiv: https://arxiv.org/abs/2508.04414
 
@@ -12,6 +12,7 @@ Achieving decarbonization across energy sectors requires demand-side transformat
 - `notebooks` contains the Jupyter notebooks used for the evaluation of results.
 - `scripts` and 'config files' can be used to generate the network files using pypsa-eur (https://github.com/PyPSA/pypsa-eur). The specific version of pypsa-eur that was used to implement the changes is also saved at ([https://github.com/Parisra/pypsa-eur/tree/merged](https://github.com/Parisra/pypsa-eur/tree/demand-management)).
 Attention:
+- 'csvs' and 'csvs_read' contain some of CSV files used in the notebooks. The complete set of CSVs and network (.nc) files can be found on the zenodo repository (linke below)
 1. The scripts were used with pypsa-eur v0.11.0 and atlite v0.2.12. Adjustments to the code may be needed if later versions of pypsa-eur and atlite are used.
 2. The notebooks is customised for networks of this study, so care should be taken
 when using it to produce similiar figures for PyPSA network files.
